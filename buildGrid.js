@@ -23,11 +23,10 @@ const recursivelyBuildGrid = (cumulativeSize, precedingSizes, level) => {
   level += 1;
   let allCss = '';
   let cssString = '';
+  const entrySize = cumulativeSize;
+  const entryPrecedes = precedingSizes.slice();
   for (let key of keys) {
     key = parseInt(key);
-    if ((cumulativeSize + key) > 12) {
-      break;
-    }
 
     precedingSizes.push(key);
     cumulativeSize += key;
@@ -48,13 +47,15 @@ const recursivelyBuildGrid = (cumulativeSize, precedingSizes, level) => {
       top: ${gridSizes[cumulativeSize] || 0}%;
     }
     `;
-    cssString += recursivelyBuildGrid(cumulativeSize, precedingSizes, level);
-    if (level !== 1) {
-      return cssString;
-    } else {
+
+    if ((entrySize + key) >= 12) {
       allCss += cssString;
-      precedingSizes = [];
-      cumulativeSize = 0;
+      break;
+    } else {
+      allCss += recursivelyBuildGrid(cumulativeSize, precedingSizes, level);
+      console.log("What is the entry precedes: ", entryPrecedes);
+      precedingSizes = entryPrecedes.slice();
+      cumulativeSize = entrySize;
       cssString = '';
     }
   }
@@ -62,4 +63,8 @@ const recursivelyBuildGrid = (cumulativeSize, precedingSizes, level) => {
 };
 
 const cssFinal = recursivelyBuildGrid(0, [], 0);
-console.log("What is cssFinal: ", cssFinal);
+
+fs.writeFile("grid.css", cssFinal, (err) => {
+  if (err) console.log(err);
+  console.log("Successfully Written to File.");
+});
