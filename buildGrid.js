@@ -19,36 +19,47 @@ const gridType = 'row';
 
 const keys = Object.keys(gridSizes);
 
-const recursivelyBuildGrid = (cumulativeSize, baseSize, precedingSizes) => {
+const recursivelyBuildGrid = (cumulativeSize, precedingSizes, level) => {
+  level += 1;
   let allCss = '';
   let cssString = '';
   for (let key of keys) {
     key = parseInt(key);
-    baseSize = parseInt(baseSize);
     if ((cumulativeSize + key) > 12) {
       break;
     }
 
+    precedingSizes.push(key);
+    cumulativeSize += key;
+
     let className = '';
 
-    className += `.${gridType}-${baseSize}`;
-
-    for (let size of precedingSizes) {
-      className += ` + .${gridType}-${size}`;
+    for (const [i, size] of precedingSizes.entries()) {
+      if (!i) {
+        className += `.${gridType}-${size}`;
+      } else {
+        className += ` + .${gridType}-${size}`;
+      }
     }
+
     cssString += `${className} {
       position: absolute;
       height: ${gridSizes[key]}%;
       top: ${gridSizes[cumulativeSize] || 0}%;
     }
     `;
-    precedingSizes.push(key);
-    cumulativeSize += key;
-    cssString += recursivelyBuildGrid(cumulativeSize, key, precedingSizes);
-    return cssString;
+    cssString += recursivelyBuildGrid(cumulativeSize, precedingSizes, level);
+    if (level !== 1) {
+      return cssString;
+    } else {
+      allCss += cssString;
+      precedingSizes = [];
+      cumulativeSize = 0;
+      cssString = '';
+    }
   }
   return allCss;
 };
 
-const cssFinal = recursivelyBuildGrid(0, 1, []);
+const cssFinal = recursivelyBuildGrid(0, [], 0);
 console.log("What is cssFinal: ", cssFinal);
