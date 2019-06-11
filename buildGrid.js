@@ -2,16 +2,16 @@ const fs = require('fs');
 
 const gridSizes = {
   1: 8.33333,
-  2: 16.66667,
+  2: 16.66666,
   3: 25,
   4: 33.33333,
-  5: 41.66667,
+  5: 41.66666,
   6: 50,
   7: 58.33333,
-  8: 66.66667,
+  8: 66.66666,
   9: 75,
   10: 83.33333,
-  11: 91.66667,
+  11: 91.66666,
   12: 100
 };
 
@@ -41,15 +41,22 @@ const recursivelyBuildGrid = (cumulativeSize, precedingSizes, level) => {
       }
     }
 
+    let offsetType = 'top';
+    let girth = 'height';
+    if (gridType === 'col') {
+      offsetType = 'left';
+      girth = 'width';
+    }
     cssString += `${className} {
       position: absolute;
-      height: ${gridSizes[key]}%;
-      top: ${gridSizes[cumulativeSize] || 0}%;
+      ${girth}: ${gridSizes[key]}%;
+      ${offsetType}: ${gridSizes[cumulativeSize - key] || 0}%;
     }
     `;
 
+    allCss += cssString;
+
     if ((entrySize + key) >= 12) {
-      allCss += cssString;
       break;
     } else {
       allCss += recursivelyBuildGrid(cumulativeSize, precedingSizes, level);
@@ -64,7 +71,7 @@ const recursivelyBuildGrid = (cumulativeSize, precedingSizes, level) => {
 
 const cssFinal = recursivelyBuildGrid(0, [], 0);
 
-fs.writeFile("grid.css", cssFinal, (err) => {
+fs.writeFile(`${gridType}s.css`, cssFinal, (err) => {
   if (err) console.log(err);
   console.log("Successfully Written to File.");
 });
