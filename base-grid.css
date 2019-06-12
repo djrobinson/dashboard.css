@@ -1,0 +1,144 @@
+.clear-row {
+    clear: both;
+    width: 100vw;
+}
+
+.grid {
+    display: flex;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+.align-end {
+    align-items: flex-end;
+}
+.align-center {
+    align-items: center;
+}
+
+.center-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.center-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    text-align: left;
+}
+
+/* Alignment per cell */
+.grid-cell-top {
+    align-self: flex-start;
+}
+.grid-cell-bottom {
+    align-self: flex-end;
+}
+.grid-cell-center {
+    align-self: center;
+}
+
+
+.full-col-12 {
+    position: relative;
+    flex: 0 0 100vw;
+}
+.full-col-11 {
+    position: relative;
+    flex: 0 0 91.66667vw;
+}
+.full-col-10 {
+    position: relative;
+    flex: 0 0 83.33333vw;
+}
+.full-col-9 {
+    position: relative;
+    flex: 0 0 75vw;
+}
+.full-col-8 {
+    position: relative;
+    flex: 0 0 66.66667vw;
+}
+.full-col-7 {
+    position: relative;
+    flex: 0 0 58.33333vw;
+}
+.full-col-6 {
+    position: relative;
+    flex: 0 0 50vw;
+}
+.full-col-5 {
+    position: relative;
+    flex: 0 0 41.66667vw;
+}
+.full-col-4 {
+    position: relative;
+    flex: 0 0 33.33333vw;
+}
+.full-col-3 {
+    position: relative;
+    flex: 0 0 25vw;
+}
+.full-col-2 {
+    position: relative;
+    flex: 0 0 16.66667vw;
+}
+.full-col-1 {
+    position: relative;
+    flex: 0 0 8.33333vw;
+}
+
+.full-row-12 {
+    position: relative;
+    height: 100vh;
+}
+.full-row-11 {
+    position: relative;
+    height: 91.66667vh;
+}
+.full-row-10 {
+    position: relative;
+    height: 83.33333vh;
+}
+.full-row-9 {
+    position: relative;
+    height: 75vh;
+}
+.full-row-8 {
+    position: relative;
+    height: 66.66667vh;
+}
+.full-row-7 {
+    position: relative;
+    height: 58.33333vh;
+}
+.full-row-6 {
+    position: relative;
+    height: 50vh;
+}
+.full-row-5 {
+    position: relative;
+    height: 41.66667vh;
+}
+.full-row-4 {
+    position: relative;
+    height: 33.33333vh;
+}
+.full-row-3 {
+    position: relative;
+    height: 25vh;
+}
+.full-row-2 {
+    position: relative;
+    height: 16.66667vh;
+}
+.full-row-1 {
+    position: relative;
+    height: 8.33333vh;
+}
